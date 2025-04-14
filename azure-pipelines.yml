@@ -1,3 +1,6 @@
+trigger:
+- '*'
+
 pool:
   vmImage: 'windows-latest'
 
@@ -29,7 +32,7 @@ steps:
   inputs:
     command: 'pack'
     projects: '**/*.csproj'
-    arguments: '--no-build --configuration $(buildConfiguration)'
+    arguments: '--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     versioningScheme: byPrereleaseNumber
     majorVersion: '1'
     minorVersion: '0'
@@ -40,6 +43,6 @@ steps:
   inputs:
     command: push
     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
-    publishVstsFeed: 'SpaceGame/Tailspin.SpaceGame.Web.Models'
+    publishVstsFeed: 'stankovskisergei04/SpaceGame/Tailspin.SpaceGame.Web.Models'
     allowPackageConflicts: true
   condition: succeeded()
